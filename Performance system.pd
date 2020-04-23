@@ -1,0 +1,268 @@
+#N canvas 176 23 932 812 12;
+#X obj 33 520 adc~;
+#N canvas 0 23 950 583 patch1 0;
+#X obj 95 557 f;
+#X obj 230 557 samplerate~;
+#X obj 95 587 expr $f1 * ($f2 / 4096);
+#X obj 69 382 tabread spectrum2;
+#X obj 70 338 until;
+#X obj 76 507 t f b b;
+#X obj 123 557 + 1;
+#X obj 96 682 pack f f;
+#X obj 141 655 f;
+#X obj 96 611 t f b;
+#X obj 96 707 print;
+#X msg 70 283 256;
+#X obj 70 361 f;
+#X obj 98 361 + 1;
+#X obj 70 306 t f b;
+#X msg 154 320 0;
+#X text 99 284 <- click on this to have freq and amp info printed;
+#X obj 160 436 sel 1;
+#X text 242 410 <-- amp threshold;
+#X obj 76 484 f;
+#X obj 206 386 hsl 128 15 0 127 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X floatatom 207 412 5 0 0 0 - - -;
+#X obj 160 412 > 50;
+#X connect 0 0 2 0;
+#X connect 0 0 6 0;
+#X connect 1 0 2 1;
+#X connect 2 0 9 0;
+#X connect 3 0 19 1;
+#X connect 3 0 22 0;
+#X connect 4 0 12 0;
+#X connect 5 0 8 1;
+#X connect 5 1 0 0;
+#X connect 5 2 1 0;
+#X connect 6 0 0 1;
+#X connect 7 0 10 0;
+#X connect 8 0 7 1;
+#X connect 9 0 7 0;
+#X connect 9 1 8 0;
+#X connect 11 0 14 0;
+#X connect 12 0 13 0;
+#X connect 12 0 3 0;
+#X connect 13 0 12 1;
+#X connect 14 0 4 0;
+#X connect 14 1 15 0;
+#X connect 15 0 12 1;
+#X connect 15 0 0 1;
+#X connect 17 0 19 0;
+#X connect 19 0 5 0;
+#X connect 20 0 21 0;
+#X connect 20 0 22 1;
+#X connect 22 0 17 0;
+#X restore 151 552 pd patch1;
+#N canvas 439 233 1001 602 patch2 0;
+#X obj 124 107 metro 50;
+#X obj 288 98 *~;
+#X obj 122 80 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 178 -18 mtof;
+#X obj 176 9 sig~;
+#X obj 281 65 osc~ 440;
+#X obj 265 150 dac~ 1 2;
+#X obj 361 107 env~;
+#X obj 367 146 - 100;
+#X obj 390 -66 vsl 15 128 0 127 0 0 empty Vsend empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X msg 168 -47 60;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array oscil 100 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -0.2 0 0 0 0 -0.0714285
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -0.0714285 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 -0.0714285 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 -0.1 0;
+#X coords 0 1 100 -1 200 140 1;
+#X restore 29 194 graph;
+#X msg 260 2 660;
+#X obj 566 143 metro 50;
+#X obj 555 189 tabwrite~ oscil;
+#X obj 730 134 *~;
+#X obj 564 116 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 620 18 mtof;
+#X obj 618 45 sig~;
+#X obj 707 186 dac~ 1 2;
+#X obj 803 143 env~;
+#X obj 809 182 - 100;
+#X obj 831 -4 vsl 15 128 0 127 0 0 empty Vsend1 empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X msg 621 -12 60;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array oscil 100 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -0.2 0 0 0 0 -0.0714285
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -0.0714285 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 -0.0714285 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 -0.1 0;
+#X coords 0 1 100 -1 200 140 1;
+#X restore 471 230 graph;
+#X msg 702 38 660;
+#X msg 551 9 69;
+#X obj 723 101 osc~ 442;
+#X msg 131 -35 69;
+#X obj 80 -55 tgl 15 0 empty ToggleSend1 empty 17 7 0 10 -262144 -1
+-1 0 1;
+#X obj 112 153 tabwrite~ spectrum1;
+#X obj 520 -34 tgl 15 0 empty ToggleSend2 empty 17 7 0 10 -262144 -1
+-1 0 1;
+#X obj 66 -19 tgl 15 0 empty ToggleSendStop1 empty 17 7 0 10 -262144
+-1 -1 0 1;
+#X msg 99 -14 0;
+#X obj 474 -6 tgl 15 0 empty ToggleSendStop2 empty 17 7 0 10 -262144
+-1 -1 0 1;
+#X msg 507 -1 0;
+#X connect 1 0 6 0;
+#X connect 1 0 6 1;
+#X connect 1 0 7 0;
+#X connect 1 0 30 0;
+#X connect 2 0 0 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 1 0;
+#X connect 7 0 8 0;
+#X connect 9 0 1 1;
+#X connect 10 0 3 0;
+#X connect 12 0 5 0;
+#X connect 15 0 19 0;
+#X connect 15 0 19 1;
+#X connect 15 0 20 0;
+#X connect 15 0 14 0;
+#X connect 16 0 13 0;
+#X connect 17 0 18 0;
+#X connect 18 0 27 0;
+#X connect 20 0 21 0;
+#X connect 22 0 15 1;
+#X connect 23 0 17 0;
+#X connect 25 0 27 0;
+#X connect 26 0 17 0;
+#X connect 27 0 15 0;
+#X connect 28 0 3 0;
+#X connect 29 0 28 0;
+#X connect 31 0 26 0;
+#X connect 32 0 33 0;
+#X connect 33 0 3 0;
+#X connect 34 0 35 0;
+#X connect 35 0 17 0;
+#X restore 127 137 pd patch2;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array spectrum1 100 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 -0.0714285 0 0 0 0 0 0 0 0 0 -0.2 0 0
+0 0 -0.0714285 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0714286 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -0.0714285 0 0 0.0714286 0 0 0 0
+0 0 0 0 0 0 0 0 0.514286 0.342857 0 0 0 0 0 0 0 0 0 0 0 0 0 -0.1 0
+;
+#X coords 0 1 100 -1 200 140 1;
+#X restore 40 164 graph;
+#X obj 38 -8 tgl 30 0 empty sned Main-switch 37 17 0 20 -258113 -1
+-1 0 1;
+#X obj 267 169 vsl 15 128 0 127 0 0 Vsend empty 440-VlumeSlider 20
+50 0 14 -203904 -1 -1 0 1;
+#X obj 485 166 vsl 15 128 0 127 0 0 Vsend1 empty 442-VlumeSlider 20
+50 0 14 -232576 -1 -1 0 1;
+#X msg 38 31 \; pd dsp \$1;
+#X obj 262 105 tgl 20 0 ToggleSend1 empty Start 27 7 1 15 -262130 -1
+-1 0 1;
+#X obj 481 104 tgl 20 0 ToggleSend2 empty Start 27 7 1 15 -204800 -1
+-1 0 1;
+#X obj 262 134 tgl 20 0 ToggleSendStop1 empty Stop 27 7 1 15 -257985
+-1 -33289 0 1;
+#X obj 482 133 tgl 20 0 ToggleSendStop2 empty Stop 27 7 1 15 -4032
+-1 -1 0 1;
+#N canvas 106 23 450 300 OUTPUT 0;
+#X obj 184 134 dac~;
+#X obj 187 98 *~;
+#X obj 187 53 r~ noise1;
+#X obj 263 76 r~ noise2;
+#X obj 94 58 r~ stations;
+#X connect 1 0 0 0;
+#X connect 1 0 0 1;
+#X connect 2 0 1 0;
+#X connect 3 0 1 1;
+#X connect 4 0 1 0;
+#X restore 94 522 pd OUTPUT;
+#N canvas 539 192 528 431 INPUT 0;
+#X obj 95 36 notein;
+#X floatatom 56 60 5 0 0 0 - - -;
+#X floatatom 128 100 5 0 0 0 - - -;
+#X floatatom 40 123 5 0 0 0 - - -;
+#X obj 53 95 mtof;
+#X obj 124 70 / 127;
+#X obj 119 275 dac~;
+#X obj 119 225 *~;
+#X obj 35 150 osc~ 440;
+#X obj 193 167 mtof;
+#X obj 194 206 sig~;
+#X msg 186 127 69;
+#X connect 0 0 1 0;
+#X connect 0 1 5 0;
+#X connect 1 0 4 0;
+#X connect 2 0 7 1;
+#X connect 2 0 11 0;
+#X connect 3 0 8 0;
+#X connect 4 0 3 0;
+#X connect 5 0 2 0;
+#X connect 7 0 6 0;
+#X connect 7 0 6 1;
+#X connect 8 0 7 0;
+#X connect 9 0 10 0;
+#X connect 10 0 8 0;
+#X connect 11 0 9 0;
+#X restore 167 522 pd INPUT;
+#X obj 27 313 cnv 15 450 200 empty empty empty 20 12 0 14 -262138 -66577
+0;
+#X text 32 335 The music performance tuning system consists of two
+parts. The first part tunes the user. The tuning can be 440/442. In
+solo instruments and orchestras performed by musical instruments \,
+the standard tone used for tuning may be different. So two options
+were made for users to choose. You also can use microbit button(A/B/C)
+In the second part \, users can see their sound volume and frequency
+from the linear amplitude spectrum. You can also analyze the attack
+\, decay \, sustain \, and release of instrument sounds.;
+#X obj 246 37 cnv 15 400 50 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#X text 256 50 Press Start or Microbit's A/B/C button you can get the
+standard note(Only 440);
+#N canvas 0 23 849 564 spectrum 0;
+#X obj 335 197 rfft~;
+#X obj 260 268 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#N canvas 51 367 1153 478 (subpatch) 0;
+#X array spectrum2 128 float 1;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 256 127 0 400 150 1;
+#X restore 36 379 graph;
+#X obj 335 224 *~;
+#X obj 362 224 *~;
+#X obj 335 275 biquad~ 0 0 0 0 1;
+#X obj 260 290 metro 50;
+#X obj 335 253 q8_sqrt~;
+#X text 35 531 20Hz;
+#X text 412 530 2KHz;
+#X obj 42 27 block~ 4096;
+#X obj 192 238 loadbang;
+#X obj 310 328 tabwrite~ spectrum2;
+#X obj 327 25 inlet~;
+#X msg 46 90 \; pd dsp 1;
+#X connect 0 0 3 0;
+#X connect 0 0 3 1;
+#X connect 0 1 4 0;
+#X connect 0 1 4 1;
+#X connect 1 0 6 0;
+#X connect 3 0 7 0;
+#X connect 4 0 7 0;
+#X connect 5 0 12 0;
+#X connect 6 0 12 0;
+#X connect 7 0 5 0;
+#X connect 11 0 1 0;
+#X connect 11 0 14 0;
+#X connect 13 0 0 0;
+#X coords 0 -1 1 1 420 200 1 25 350;
+#X restore 33 546 pd spectrum;
+#X connect 0 0 18 0;
+#X connect 4 0 7 0;
+#X coords 0 0 2 1 0 0 0;
